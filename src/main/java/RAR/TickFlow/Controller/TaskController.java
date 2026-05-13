@@ -1,4 +1,45 @@
 package RAR.TickFlow.Controller;
 
+import RAR.TickFlow.dto.TaskRequestDTO;
+import RAR.TickFlow.dto.TaskResponseDTO;
+import RAR.TickFlow.service.TaskService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
+
+@RestController
+@RequestMapping("/api/tasks")
 public class TaskController {
+private final TaskService taskService;
+
+
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
+    @GetMapping
+    public ResponseEntity<List<TaskResponseDTO>> getAllTasks() {
+        return ResponseEntity.ok(taskService.getAllTasks());
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<TaskResponseDTO> getTaskById(@PathVariable UUID id) {
+        return ResponseEntity.ok(taskService.getTaskById(id));
+    }
+    @PostMapping
+    public ResponseEntity<TaskResponseDTO> createTask(@RequestBody @Valid TaskRequestDTO taskRequestDTO) {
+        return new ResponseEntity<>(taskService.createTask(taskRequestDTO), HttpStatus.CREATED);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<TaskResponseDTO> updateTask(@PathVariable UUID id, @RequestBody @Valid TaskRequestDTO taskRequestDTO) {
+        return ResponseEntity.ok(taskService.updateTask(id, taskRequestDTO));
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTask(@PathVariable UUID id) {
+        taskService.deleteTask(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

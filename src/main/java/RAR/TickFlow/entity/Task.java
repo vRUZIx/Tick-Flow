@@ -22,10 +22,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class Task {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(updatable = false, nullable = false)
+    @Column(columnDefinition = "CHAR(36)", updatable = false, nullable = false)
     private UUID id;
 
     @NotBlank(message = "Title cannot be blank")
@@ -54,5 +53,6 @@ public class Task {
     private Priority priority = Priority.MEDIUM;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "tag", length = 50)
     private Tag tag;
 }
