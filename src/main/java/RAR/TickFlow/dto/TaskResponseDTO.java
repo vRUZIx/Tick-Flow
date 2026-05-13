@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 public class TaskResponseDTO {
 
-    private UUID id;
+    private Long id;
 
     private String title;
 
