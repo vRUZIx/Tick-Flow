@@ -23,9 +23,8 @@ import java.util.UUID;
 @Builder
 public class Task {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(columnDefinition = "CHAR(36)", updatable = false, nullable = false)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotBlank(message = "Title cannot be blank")
     @Column(nullable = false)

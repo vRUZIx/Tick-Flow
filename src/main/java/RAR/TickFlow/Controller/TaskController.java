@@ -25,7 +25,7 @@ private final TaskService taskService;
         return ResponseEntity.ok(taskService.getAllTasks());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<TaskResponseDTO> getTaskById(@PathVariable UUID id) {
+    public ResponseEntity<TaskResponseDTO> getTaskById(@PathVariable Long id) {
         return ResponseEntity.ok(taskService.getTaskById(id));
     }
     @PostMapping
@@ -33,11 +33,11 @@ private final TaskService taskService;
         return new ResponseEntity<>(taskService.createTask(taskRequestDTO), HttpStatus.CREATED);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<TaskResponseDTO> updateTask(@PathVariable UUID id, @RequestBody @Valid TaskRequestDTO taskRequestDTO) {
+    public ResponseEntity<TaskResponseDTO> updateTask(@PathVariable Long id, @RequestBody @Valid TaskRequestDTO taskRequestDTO) {
         return ResponseEntity.ok(taskService.updateTask(id, taskRequestDTO));
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTask(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
         return ResponseEntity.noContent().build();
     }

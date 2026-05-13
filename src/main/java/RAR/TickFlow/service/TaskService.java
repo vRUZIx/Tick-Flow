@@ -43,7 +43,7 @@ public class TaskService {
                 .toList();
     }
 
-    public TaskResponseDTO getTaskById(UUID id) {
+    public TaskResponseDTO getTaskById(Long id) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Task not found with id: " + id));
         return mapToResponseDTO(task);
@@ -51,7 +51,7 @@ public class TaskService {
 
     // ──── UPDATE ────────────────────────────────────────────────────────────────
 
-    public TaskResponseDTO updateTask(UUID id, TaskRequestDTO request) {
+    public TaskResponseDTO updateTask(Long id, TaskRequestDTO request) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Task not found with id: " + id));
 
@@ -73,7 +73,7 @@ public class TaskService {
 
     // ──── DELETE ─────────────────────────────────────────────────────────────────
 
-    public void deleteTask(UUID id) {
+    public void deleteTask(Long id) {
         if (!taskRepository.existsById(id)) {
             throw new RuntimeException("Task not found with id: " + id);
         }
