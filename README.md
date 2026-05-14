@@ -3,11 +3,6 @@
 TickFlow is a lightweight task management REST API built with Spring Boot.  
 The project focuses on managing daily tasks through clean CRUD operations, Docker support, CI/CD pipeline integration, and cloud deployment.
 
-## 🚀 Live Demo & API Documentation
-You can access the live environment and explore the API endpoints using the links below:
-*   **🌐 Live API Base URL:** https://tick-flow.onrender.com
-*   **📖 Swagger UI Documentation:** http://localhost:8080/swagger-ui/index.html#/
-
 ## Project Management
 
 Trello Board: https://trello.com/invite/b/6a030cccf1b35d70050113fa/ATTI45ea57e33fa459c34ba3056a6e826567E476AA6E/tick-flow 
@@ -26,7 +21,6 @@ Trello Board: https://trello.com/invite/b/6a030cccf1b35d70050113fa/ATTI45ea57e33
 - GitHub Actions
 - Render
 - Lombok
-
 ## Features
 
 - Create, read, update, and delete tasks
@@ -55,8 +49,53 @@ Example fields:
 - deadline
 - created date
 
+```
+TickFlow/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── RAR/TickFlow/
+│   │   │       ├── controller/
+│   │   │       │   └── TaskController.java
+│   │   │       ├── dto/
+│   │   │       │   ├── TaskRequestDTO.java
+│   │   │       │   └── TaskResponseDTO.java
+│   │   │       ├── entity/
+│   │   │       │   └── Task.java
+│   │   │       ├── enums/
+│   │   │       │   ├── Priority.java
+│   │   │       │   ├── Status.java
+│   │   │       │   └── Tag.java
+│   │   │       ├── exceptions/
+│   │   │       │   ├── GlobalExceptionHandler.java
+│   │   │       │   ├── InvalidTaskOperationException.java
+│   │   │       │   └── TaskNotFoundException.java
+│   │   │       ├── repository/
+│   │   │       │   └── TaskRepository.java
+│   │   │       ├── service/
+│   │   │       │   └── TaskService.java
+│   │   │       └── TickFlowApplication.java
+│   │   └── resources/
+│   │       ├── application.properties
+│   │       ├── application-prod.properties
+│   │       ├── application-test.properties
+│   │       └── data.sql
+│   └── test/
+│       └── java/
+│           └── RAR/TickFlow/
+│               ├── TaskControllerTest.java
+│               └── TickFlowApplicationTests.java
+├── .dockerignore
+├── .gitignore
+├── docker-compose.yml
+├── Dockerfile
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+├── README.md
+└── TickFlow_API_Documentation.md
+```
 ## API Endpoints
-
 | Method | Endpoint | Description |
 |------|----------|-------------|
 | GET | `/api/tasks` | Get all tasks |
@@ -138,7 +177,7 @@ Each contributor works on their own feature branch and creates pull requests bef
 
 The application is deployed on Render.
 
-Deployed URL: [Add Render URL Here](#)
+Deployed URL: [ https://tick-flow.onrender.com](#)
 
 Environment variables:
 
@@ -146,47 +185,14 @@ Environment variables:
 SPRING_PROFILES_ACTIVE=prod
 DATABASE_URL=<render-database-url>
 ```
-
-## Project Timeline
-
-### Day 1 — Scaffold + CRUD
-
-- Generated Spring Boot project
-- Implemented Task entity
-- Added CRUD endpoints
-- Added validation
-- Added integration tests
-
-### Day 2 — Docker + CI/CD
-
-- Added Dockerfile
-- Added docker-compose.yml
-- Configured GitHub Actions pipeline
-
-### Day 3 — Deploy + Polish
-
-- Deployed application on Render
-- Configured PostgreSQL
-- Improved validation and error handling
-
-### Day 4 — Presentation
-
-- Live API demo
-- CRUD demonstration
-- CI/CD walkthrough
-- Technical discussion
-
 ## What Is Not Included
 
 - Authentication / Authorization
 - Frontend application
-
-## Contributor
-
+### 🛠️ Contributors
+The following individuals contributed to the development of this project:
 - Ruzi Xancanov
 - Revan Abushov
 - Ayhan Aghayev
-
-## License
-
-This project is created for educational and portfolio purposes.
+  
+⭐ If you like this project, don't forget to give it a star!
