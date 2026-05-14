@@ -1,29 +1,23 @@
 package RAR.TickFlow.service;
 
-import RAR.TickFlow.dto.PaginatedResponseDTO;
 import RAR.TickFlow.dto.TaskRequestDTO;
 import RAR.TickFlow.dto.TaskResponseDTO;
 import RAR.TickFlow.entity.Task;
 import RAR.TickFlow.enums.Priority;
 import RAR.TickFlow.enums.Status;
-import RAR.TickFlow.enums.Tag;
+import RAR.TickFlow.exceptions.InvalidTaskOperationException;
+import RAR.TickFlow.exceptions.TaskNotFoundException;
 import RAR.TickFlow.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class TaskService {
 
     private final TaskRepository taskRepository;
-
-    // ──── CREATE ────────────────────────────────────────────────────────────────
 
     public TaskResponseDTO createTask(TaskRequestDTO request) {
         Task task = Task.builder()
@@ -39,8 +33,6 @@ public class TaskService {
         return mapToResponseDTO(saved);
     }
 
-    // ──── READ ──────────────────────────────────────────────────────────────────
-
     public List<TaskResponseDTO> getAllTasks() {
         return taskRepository.findAll()
                 .stream()
@@ -50,15 +42,13 @@ public class TaskService {
 
     public TaskResponseDTO getTaskById(Long id) {
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found with id: " + id));
+                .orElseThrow(() -> new TaskNotFoundException("Task not found with id: " + id));
         return mapToResponseDTO(task);
     }
 
-    // ──── UPDATE ────────────────────────────────────────────────────────────────
-
     public TaskResponseDTO updateTask(Long id, TaskRequestDTO request) {
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found with id: " + id));
+                .orElseThrow(() -> new InvalidTaskOperationException("Task not found with id: " + id));
 
         task.setTitle(request.getTitle());
         task.setDescription(request.getDescription());
@@ -76,16 +66,12 @@ public class TaskService {
         return mapToResponseDTO(updated);
     }
 
-    // ──── DELETE ─────────────────────────────────────────────────────────────────
-
     public void deleteTask(Long id) {
         if (!taskRepository.existsById(id)) {
-            throw new RuntimeException("Task not found with id: " + id);
+            throw new TaskNotFoundException("Task not found with id: " + id);
         }
         taskRepository.deleteById(id);
     }
-
-    // ──── MAPPER ────────────────────────────────────────────────────────────────
 
     private TaskResponseDTO mapToResponseDTO(Task task) {
         return TaskResponseDTO.builder()
@@ -100,30 +86,4 @@ public class TaskService {
                 .build();
     }
 
-    public PaginatedResponseDTO<TaskResponseDTO> filterAndSearchTasks(
-            Status status,
-            Priority priority,
-            Tag tag,
-            String search,
-            int page,
-            int size
-    ) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Task> taskPage = taskRepository.filterAndSearch(status, priority, tag, search, pageable);
-
-        List<TaskResponseDTO> content = taskPage.getContent()
-                .stream()
-                .map(this::mapToResponseDTO)
-                .toList();
-
-        return PaginatedResponseDTO.<TaskResponseDTO>builder()
-                .content(content)
-                .page(taskPage.getNumber())
-                .size(taskPage.getSize())
-                .totalElements(taskPage.getTotalElements())
-                .totalPages(taskPage.getTotalPages())
-                .first(taskPage.isFirst())
-                .last(taskPage.isLast())
-                .build();
-    }
 }

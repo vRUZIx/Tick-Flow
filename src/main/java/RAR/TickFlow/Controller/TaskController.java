@@ -1,8 +1,8 @@
 package RAR.TickFlow.Controller;
 
-import RAR.TickFlow.dto.PaginatedResponseDTO;
 import RAR.TickFlow.dto.TaskRequestDTO;
 import RAR.TickFlow.dto.TaskResponseDTO;
+import RAR.TickFlow.entity.Task;
 import RAR.TickFlow.enums.Priority;
 import RAR.TickFlow.enums.Status;
 import RAR.TickFlow.enums.Tag;
@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/tasks")
@@ -25,17 +24,8 @@ private final TaskService taskService;
         this.taskService = taskService;
     }
     @GetMapping
-    public ResponseEntity<PaginatedResponseDTO<TaskResponseDTO>> getAllTasks(
-            @RequestParam(required = false) Status status,
-            @RequestParam(required = false) Priority priority,
-            @RequestParam(required = false) Tag tag,
-            @RequestParam(required = false) String search,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
-    ) {
-        return ResponseEntity.ok(
-                taskService.filterAndSearchTasks(status, priority, tag, search, page, size)
-        );
+    public ResponseEntity<List<TaskResponseDTO>>getAllTasks(){
+        return ResponseEntity.ok(taskService.getAllTasks());
     }
     @GetMapping("/{id}")
     public ResponseEntity<TaskResponseDTO> getTaskById(@PathVariable Long id) {

@@ -3,6 +3,11 @@
 TickFlow is a lightweight task management REST API built with Spring Boot.  
 The project focuses on managing daily tasks through clean CRUD operations, Docker support, CI/CD pipeline integration, and cloud deployment.
 
+## 🚀 Live Demo & API Documentation
+You can access the live environment and explore the API endpoints using the links below:
+*   **🌐 Live API Base URL:** https://tick-flow.onrender.com
+*   **📖 Swagger UI Documentation:** http://localhost:8080/swagger-ui/index.html#/
+
 ## Project Management
 
 Trello Board: https://trello.com/invite/b/6a030cccf1b35d70050113fa/ATTI45ea57e33fa459c34ba3056a6e826567E476AA6E/tick-flow 
