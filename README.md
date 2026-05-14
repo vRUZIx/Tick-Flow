@@ -193,7 +193,7 @@ Each contributor works on their own feature branch and creates pull requests bef
 
 The application is deployed on Render.
 
-Deployed URL: [ https://tick-flow.onrender.com](#)
+Deployed URL: [https://tick-flow.onrender.com](https://tick-flow.onrender.com)
 
 Environment variables:
 
