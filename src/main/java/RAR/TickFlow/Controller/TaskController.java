@@ -1,5 +1,6 @@
 package RAR.TickFlow.Controller;
 
+import RAR.TickFlow.dto.PaginatedResponseDTO;
 import RAR.TickFlow.dto.TaskRequestDTO;
 import RAR.TickFlow.dto.TaskResponseDTO;
 import RAR.TickFlow.enums.Priority;
@@ -24,14 +25,16 @@ private final TaskService taskService;
         this.taskService = taskService;
     }
     @GetMapping
-    public ResponseEntity<List<TaskResponseDTO>> getAllTasks(
+    public ResponseEntity<PaginatedResponseDTO<TaskResponseDTO>> getAllTasks(
             @RequestParam(required = false) Status status,
             @RequestParam(required = false) Priority priority,
             @RequestParam(required = false) Tag tag,
-            @RequestParam(required = false) String search
+            @RequestParam(required = false) String search,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
     ) {
         return ResponseEntity.ok(
-                taskService.filterAndSearchTasks(status, priority, tag, search)
+                taskService.filterAndSearchTasks(status, priority, tag, search, page, size)
         );
     }
     @GetMapping("/{id}")

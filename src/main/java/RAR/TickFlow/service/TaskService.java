@@ -1,5 +1,6 @@
 package RAR.TickFlow.service;
 
+import RAR.TickFlow.dto.PaginatedResponseDTO;
 import RAR.TickFlow.dto.TaskRequestDTO;
 import RAR.TickFlow.dto.TaskResponseDTO;
 import RAR.TickFlow.entity.Task;
@@ -8,6 +9,9 @@ import RAR.TickFlow.enums.Status;
 import RAR.TickFlow.enums.Tag;
 import RAR.TickFlow.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -96,15 +100,30 @@ public class TaskService {
                 .build();
     }
 
-    public List<TaskResponseDTO> filterAndSearchTasks(
+    public PaginatedResponseDTO<TaskResponseDTO> filterAndSearchTasks(
             Status status,
             Priority priority,
             Tag tag,
-            String search
+            String search,
+            int page,
+            int size
     ) {
-        return taskRepository.filterAndSearch(status, priority, tag, search)
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Task> taskPage = taskRepository.filterAndSearch(status, priority, tag, search, pageable);
+
+        List<TaskResponseDTO> content = taskPage.getContent()
                 .stream()
                 .map(this::mapToResponseDTO)
                 .toList();
+
+        return PaginatedResponseDTO.<TaskResponseDTO>builder()
+                .content(content)
+                .page(taskPage.getNumber())
+                .size(taskPage.getSize())
+                .totalElements(taskPage.getTotalElements())
+                .totalPages(taskPage.getTotalPages())
+                .first(taskPage.isFirst())
+                .last(taskPage.isLast())
+                .build();
     }
 }
