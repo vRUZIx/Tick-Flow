@@ -24,8 +24,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @AutoConfigureTestRestTemplate
@@ -49,13 +47,11 @@ class TaskControllerTest {
                 .priority(Priority.HIGH)
                 .tag(Tag.WORK)
                 .build();
-
         ResponseEntity<TaskResponseDTO> response = restTemplate.postForEntity(
                 "/api/tasks", request, TaskResponseDTO.class);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals("Finish Java Project", response.getBody().getTitle());
         assertEquals(Status.InProgress, response.getBody().getStatus());
-
     }
     @Test
     void getAllTasks_AfterManualInsertion_ReturnsAll() {
