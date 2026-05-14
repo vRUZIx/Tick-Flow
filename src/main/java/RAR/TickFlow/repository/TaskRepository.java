@@ -14,23 +14,4 @@ import java.util.List;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
-
-    @Query("""
-        SELECT t FROM Task t
-        WHERE (:status IS NULL OR t.status = :status)
-        AND (:priority IS NULL OR t.priority = :priority)
-        AND (:tag IS NULL OR t.tag = :tag)
-        AND (
-            :search IS NULL OR
-            LOWER(t.title) LIKE LOWER(CONCAT('%', :search, '%')) OR
-            LOWER(t.description) LIKE LOWER(CONCAT('%', :search, '%'))
-        )
-    """)
-    Page<Task> filterAndSearch(
-            Status status,
-            Priority priority,
-            Tag tag,
-            String search,
-            Pageable pageable
-    );
-}
+    }
