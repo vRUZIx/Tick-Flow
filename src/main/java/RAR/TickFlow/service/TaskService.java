@@ -5,6 +5,7 @@ import RAR.TickFlow.dto.TaskResponseDTO;
 import RAR.TickFlow.entity.Task;
 import RAR.TickFlow.enums.Priority;
 import RAR.TickFlow.enums.Status;
+import RAR.TickFlow.enums.Tag;
 import RAR.TickFlow.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -93,5 +94,17 @@ public class TaskService {
                 .priority(task.getPriority())
                 .tag(task.getTag())
                 .build();
+    }
+
+    public List<TaskResponseDTO> filterAndSearchTasks(
+            Status status,
+            Priority priority,
+            Tag tag,
+            String search
+    ) {
+        return taskRepository.filterAndSearch(status, priority, tag, search)
+                .stream()
+                .map(this::mapToResponseDTO)
+                .toList();
     }
 }
