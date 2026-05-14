@@ -54,7 +54,6 @@ class TaskControllerTest {
     }
     @Test
     void getAllTasks_AfterManualInsertion_ReturnsAll() {
-        // Arrange
         Task task3 = new Task();
         task3.setTitle("Buy Groceries");
         task3.setDueDate(LocalDate.of(2026, 5, 15));
@@ -64,11 +63,12 @@ class TaskControllerTest {
         task4.setDueDate(LocalDate.of(2026, 5, 17));
         task4.setStatus(Status.TODO);
         taskRepository.saveAll(List.of(task3, task4));
-
-        ResponseEntity<PaginatedResponseDTO> response = restTemplate.getForEntity("/api/tasks", PaginatedResponseDTO.class);
+        ResponseEntity<TaskResponseDTO[]> response = restTemplate.getForEntity("/api/tasks", TaskResponseDTO[].class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertEquals(2, response.getBody().getContent().size());
+        List<TaskResponseDTO> tasks = List.of(response.getBody());
+        assertEquals(2, tasks.size());
+        assertTrue(tasks.stream().anyMatch(t -> t.getTitle().equals("Buy Groceries")));
     }
     @Test
     void updateTask_StatusChange_ReturnsUpdated() {
