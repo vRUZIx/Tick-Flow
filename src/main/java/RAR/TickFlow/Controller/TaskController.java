@@ -2,6 +2,9 @@ package RAR.TickFlow.Controller;
 
 import RAR.TickFlow.dto.TaskRequestDTO;
 import RAR.TickFlow.dto.TaskResponseDTO;
+import RAR.TickFlow.enums.Priority;
+import RAR.TickFlow.enums.Status;
+import RAR.TickFlow.enums.Tag;
 import RAR.TickFlow.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -21,8 +24,15 @@ private final TaskService taskService;
         this.taskService = taskService;
     }
     @GetMapping
-    public ResponseEntity<List<TaskResponseDTO>> getAllTasks() {
-        return ResponseEntity.ok(taskService.getAllTasks());
+    public ResponseEntity<List<TaskResponseDTO>> getAllTasks(
+            @RequestParam(required = false) Status status,
+            @RequestParam(required = false) Priority priority,
+            @RequestParam(required = false) Tag tag,
+            @RequestParam(required = false) String search
+    ) {
+        return ResponseEntity.ok(
+                taskService.filterAndSearchTasks(status, priority, tag, search)
+        );
     }
     @GetMapping("/{id}")
     public ResponseEntity<TaskResponseDTO> getTaskById(@PathVariable Long id) {
