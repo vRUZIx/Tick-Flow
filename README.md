@@ -1,4 +1,5 @@
 # TickFlow
+[![DevOps App CI](https://github.com/revandev11/Tick-Flow/actions/workflows/ci.yml/badge.svg)](https://github.com/revandev11/Tick-Flow/actions/workflows/ci.yml)
 
 TickFlow is a lightweight task management REST API built with Spring Boot.  
 The project focuses on managing daily tasks through clean CRUD operations, Docker support, CI/CD pipeline integration, and cloud deployment.
