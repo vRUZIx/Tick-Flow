@@ -6,7 +6,7 @@ The project focuses on managing daily tasks through clean CRUD operations, Docke
 
 ## Project Management
 
-Trello Board: https://trello.com/invite/b/6a030cccf1b35d70050113fa/ATTI45ea57e33fa459c34ba3056a6e826567E476AA6E/tick-flow 
+Trello Board: [https://trello.com](https://trello.com/invite/b/6a030cccf1b35d70050113fa/ATTI45ea57e33fa459c34ba3056a6e826567E476AA6E/tick-flow)
 
 ## Tech Stack
 
@@ -102,7 +102,7 @@ To ensure a seamless integration and clear understanding of the backend services
 ### Accessing the Swagger UI
 Once the application is running locally, you can access the interactive documentation at:
 
-* **Swagger UI:** [https://tick-flow.onrender.com/swagger-ui/index.html#/](https://tick-flow.onrender.com/swagger-ui/index.html#/)
+* **Swagger UI:** [https://tick-flow.onrender.com/swagger-ui](https://tick-flow.onrender.com/swagger-ui/index.html#/)
 
 ### How to Use:
 1. Start the Spring Boot application.
